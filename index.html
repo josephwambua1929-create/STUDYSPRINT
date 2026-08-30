@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StudySprint — Study Smarter. Grow Further.</title>
+<link rel="icon" href="assets/logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --logo-blue: #0B3B8B;
+    --logo-green: #00C853;
+    --pure-white: #FFFFFF;
+    
+    /* Light Theme Adjustments */
+    --text-main: #111827;           /* Sharp dark text for primary readability */
+    --text-muted: #4B5563;          /* Darker slate for subtitles/secondary text */
+    --border-subtle: #E5E7EB;       /* Light border for crisp structure */
+    --card-bg: #FFFFFF;             /* Crisp white container backgrounds */
+    --card-hover: #F9FAFB;          /* Light gray hover state */
+    
+    --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    --font-heading: 'Space Grotesk', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  
+  body {
+    background-color: var(--pure-white);
+    color: var(--text-main);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+  /* Typography */
+  h1, h2, h3, h4 { font-family: var(--font-heading); color: var(--text-main); line-height: 1.15; }
+  
+  .kicker {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--logo-blue);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+  }
+  
+  .h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; color: var(--text-main); }
+  .sub { color: var(--text-muted); font-size: 1.05rem; margin-top: 10px; max-width: 600px; }
+
+  /* Buttons & Pills */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    border: none;
+  }
+  
+  .btn-primary {
+    background: var(--logo-green);
+    color: var(--logo-blue);
+    box-shadow: 0 4px 14px rgba(0, 200, 83, 0.3);
+  }
+  .btn-primary:hover { 
+    background: var(--logo-blue); 
+    color: var(--pure-white);
+    box-shadow: 0 6px 20px rgba(11, 59, 139, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--logo-blue);
+    border: 2px solid var(--logo-blue);
+  }
+  .btn-outline:hover { 
+    background: var(--logo-blue); 
+    color: var(--pure-white); 
+  }
+  
+  .btn-block { width: 100%; }
+  .btn-sm { padding: 8px 16px; font-size: 0.85rem; }
+
+  .pill {
+    background: #F3F4F6;
+    border: 1px solid var(--border-subtle);
+    padding: 6px 14px;
+    border-radius: 99px;
+    font-size: 0.78rem;
+    font-family: var(--font-mono);
+    color: var(--logo-blue);
+    font-weight: 600;
+  }
+
+  /* Navigation */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 76px;
+  }
+  .brand { 
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+    font-family: var(--font-heading); 
+    font-size: 1.25rem; 
+    font-weight: 700; 
+    color: var(--logo-blue); 
+    text-decoration: none; 
+  }
+  .brand img { width: 38px; height: 38px; border-radius: 8px; object-fit: cover; }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a { color: var(--text-main); text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--logo-blue); }
+
+  /* Hero Section */
+  .hero {
+    padding: 160px 0 90px;
+    position: relative;
+    background: radial-gradient(circle at 85% 10%, rgba(0, 200, 83, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 10% 30%, rgba(11, 59, 139, 0.05) 0%, transparent 50%);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px; align-items: center; }
+  .hero h1 { font-size: clamp(2.5rem, 5vw, 3.8rem); margin-bottom: 18px; color: var(--text-main); }
+  .hero h1 span { color: var(--logo-blue); }
+  .hero p.lede { color: var(--text-muted); font-size: 1.15rem; max-width: 520px; margin-bottom: 28px; }
+  .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+  
+  .stat-row { display: flex; gap: 40px; margin-top: 48px; border-top: 1px solid var(--border-subtle); padding-top: 24px; }
+  .stat-row .num { font-family: var(--font-heading); font-size: 1.8rem; font-weight: 700; color: var(--logo-blue); }
+  .stat-row .lab { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-main); text-transform: uppercase; font-weight: 600; }
+
+  /* App Mockup Card */
+  .app-card {
+    background: var(--card-bg);
+    border: 2px solid var(--logo-green);
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  }
+  .app-card .top-row { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+  .app-card .top-row img { width: 64px; height: 64px; border-radius: 14px; object-fit: cover; }
+  .app-card .top-row .name { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; color: var(--text-main); }
+  .app-card .top-row .cat { font-family: var(--font-mono); font-size: 0.8rem; color: var(--logo-blue); font-weight: 600; }
+  .app-card .stars { color: var(--logo-green); margin-bottom: 16px; font-size: 0.95rem; }
+  .app-card .desc { color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; margin-bottom: 24px; }
+  .app-card .row-item { display: flex; justify-content: space-between; padding: 12px 0; border-top: 1px solid var(--border-subtle); font-size: 0.88rem; }
+  .app-card .row-item span:first-child { color: var(--text-muted); }
+  .app-card .row-item span:last-child { color: var(--logo-blue); font-family: var(--font-mono); font-weight: 700; }
+
+  /* Sections */
+  section { padding: 90px 0; position: relative; }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    padding: 32px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  }
+
+  /* Why Grid */
+  .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-top: 48px; }
+  .why-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    padding: 28px;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  }
+  .why-card:hover { border-color: var(--logo-green); transform: translateY(-4px); background: var(--card-hover); }
+  .why-card .ic { font-size: 1.8rem; margin-bottom: 16px; }
+  .why-card h3 { font-size: 1.05rem; margin-bottom: 8px; color: var(--text-main); }
+  .why-card p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; }
+
+  /* CEO Section */
+  .ceo-section { background: #F9FAFB; border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); }
+  .ceo-grid { display: grid; grid-template-columns: 320px 1fr; gap: 48px; align-items: center; margin-top: 36px; }
+  .ceo-photo-wrap { position: relative; width: 100%; }
+  .ceo-photo { width: 100%; aspect-ratio: 4/5; border-radius: 16px; overflow: hidden; border: 2px solid var(--logo-green); }
+  .ceo-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .ceo-badge {
+    position: absolute; bottom: -12px; left: 16px;
+    background: var(--logo-green); color: var(--logo-blue);
+    font-family: var(--font-mono); font-size: 0.75rem; font-weight: 800;
+    padding: 6px 14px; border-radius: 99px;
+  }
+  .ceo-quote { font-size: 1.2rem; color: var(--text-main); font-style: italic; line-height: 1.7; margin: 20px 0; }
+  .ceo-quote span { color: var(--logo-blue); font-style: normal; font-weight: bold; }
+
+  /* Features */
+  .feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+  .feat {
+    background: var(--card-bg);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    padding: 32px;
+    border-top: 4px solid var(--logo-green);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  }
+  .feat h3 { font-size: 1.1rem; margin-bottom: 12px; color: var(--text-main); }
+  .feat p { color: var(--text-muted); font-size: 0.92rem; margin-bottom: 24px; }
+
+  .cta-banner {
+    background: linear-gradient(135deg, rgba(11, 59, 139, 0.05), rgba(0, 200, 83, 0.1));
+    border: 2px solid var(--logo-green);
+    border-radius: 20px;
+    padding: 48px;
+    margin-top: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  /* Chips */
+  .chip-grid { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+  .chip-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-main);
+    padding: 10px 18px;
+    border-radius: 99px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+  }
+  .chip-btn:hover { border-color: var(--logo-blue); background: var(--logo-blue); color: var(--pure-white); transform: translateY(-2px); }
+
+  /* Steps & Warn Box */
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 40px; }
+  .step { background: var(--card-bg); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+  .step .num { font-family: var(--font-heading); font-size: 1.8rem; font-weight: 700; color: var(--logo-blue); margin-bottom: 8px; }
+
+  .warn-box {
+    margin-top: 40px; padding: 28px; border-radius: 16px;
+    background: rgba(0, 200, 83, 0.08); border: 1px solid var(--logo-green);
+  }
+  .warn-box h3 { color: var(--logo-blue); font-size: 1.05rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .warn-box ol { margin-top: 12px; padding-left: 20px; color: var(--text-main); font-size: 0.92rem; line-height: 1.8; }
+
+  /* Terminal */
+  .terminal {
+    margin-top: 32px; background: #0F172A; border: 1px solid #1E293B; border-radius: 12px; overflow: hidden;
+    font-family: var(--font-mono); font-size: 0.85rem;
+  }
+  .terminal-bar { background: #1E293B; padding: 10px 16px; display: flex; align-items: center; gap: 8px; color: var(--pure-white); }
+  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; background: var(--logo-green); }
+  .terminal-body { padding: 20px; color: var(--pure-white); }
+  .terminal-body .prompt { color: var(--logo-green); }
+  .terminal-body .file { color: var(--pure-white); font-weight: bold; }
+  .terminal-body .ok { color: var(--logo-green); }
+
+  /* FAQ */
+  .faq { margin-top: 32px; }
+  .faq-item { border-bottom: 1px solid var(--border-subtle); }
+  .faq-q {
+    width: 100%; text-align: left; background: none; border: none; color: var(--text-main);
+    padding: 20px 0; font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700;
+    display: flex; justify-content: space-between; align-items: center; cursor: pointer;
+  }
+  .faq-q .plus { color: var(--logo-blue); font-family: var(--font-mono); font-size: 1.2rem; transition: transform 0.25s ease; }
+  .faq-item.open .plus { transform: rotate(45deg); }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; color: var(--text-muted); font-size: 0.95rem; }
+  .faq-a p { padding-bottom: 20px; }
+
+  /* Contact */
+  .contact-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 32px; margin-top: 40px; }
+  form { display: flex; flex-direction: column; gap: 18px; }
+  label { font-family: var(--font-mono); font-size: 0.78rem; color: var(--logo-blue); text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 6px; font-weight: 700; }
+  input, textarea {
+    width: 100%; background: #F9FAFB; border: 1px solid var(--border-subtle);
+    border-radius: 10px; padding: 14px 16px; color: var(--text-main); font-family: var(--font-sans); font-size: 0.95rem;
+    transition: border-color 0.2s;
+  }
+  input:focus, textarea:focus { outline: none; border-color: var(--logo-blue); background: var(--pure-white); }
+  
+  .row-btn {
+    display: flex; align-items: center; gap: 16px; padding: 16px;
+    background: var(--card-bg); border: 1px solid var(--border-subtle); border-radius: 12px;
+    text-decoration: none; color: var(--text-main); margin-bottom: 12px; transition: all 0.2s;
+  }
+  .row-btn:hover { border-color: var(--logo-blue); background: var(--card-hover); }
+  .ic-badge { width: 40px; height: 40px; border-radius: 8px; background: rgba(0, 200, 83, 0.15); color: var(--logo-blue); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+  .rb-label { font-size: 0.75rem; color: var(--logo-blue); text-transform: uppercase; font-family: var(--font-mono); font-weight: 700; }
+  .rb-value { font-weight: 600; font-size: 0.95rem; color: var(--text-main); }
+  .rb-arrow { margin-left: auto; color: var(--logo-blue); font-weight: bold; }
+
+  /* Footer */
+  footer { background: #F8FAFC; border-top: 1px solid var(--border-subtle); padding: 80px 0 40px; }
+  .foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
+  .foot-brand { display: flex; align-items: center; gap: 12px; font-family: var(--font-heading); font-size: 1.2rem; font-weight: 700; margin-bottom: 16px; color: var(--logo-blue); }
+  .foot-brand img { width: 32px; height: 32px; border-radius: 6px; }
+  .foot-grid p { color: var(--text-muted); font-size: 0.9rem; max-width: 360px; }
+  .foot-grid h4 { font-size: 0.9rem; font-family: var(--font-mono); color: var(--logo-blue); text-transform: uppercase; margin-bottom: 16px; font-weight: 700; }
+  .foot-links a { display: block; color: var(--text-muted); text-decoration: none; margin-bottom: 10px; font-size: 0.9rem; transition: color 0.2s; }
+  .foot-links a:hover { color: var(--logo-blue); }
+  .contact-line { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px; }
+  .foot-bottom { border-top: 1px solid var(--border-subtle); padding-top: 24px; display: flex; justify-content: space-between; color: var(--text-muted); font-size: 0.85rem; flex-wrap: wrap; gap: 12px; }
+
+  /* Floating Top Button */
+  .fab {
+    position: fixed; bottom: 24px; right: 24px; width: 44px; height: 44px;
+    background: var(--logo-green); color: var(--logo-blue); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none; font-weight: bold; opacity: 0; pointer-events: none;
+    transition: all 0.3s ease; z-index: 900; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  .fab.show { opacity: 1; pointer-events: auto; }
+
+  /* Mobile Responsive */
+  @media (max-width: 900px) {
+    .hero-grid, .ceo-grid, .contact-grid, .foot-grid { grid-template-columns: 1fr; gap: 36px; }
+    .feat-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <a href="#home" class="brand">
+        <img src="studysprintlogo.jpg" alt="StudySprint Logo">
+        StudySprint
+      </a>
+      <div class="nav-links">
+        <a href="#home" class="active">Home</a>
+        <a href="#why">Why Us</a>
+        <a href="#learn-more">Install Guide</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <a href="STUDYSPRINT.apk" download class="btn btn-primary"> Download App</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="tag-row" style="display:flex; gap:8px; margin-bottom:20px;">
+        <span class="pill">● Live · Kenya</span>
+        <span class="pill">Android APK</span>
+      </div>
+      <h1>Study smarter.<br><span>Grow</span> further.</h1>
+      <p class="lede">Kenya's premier university revision platform — verified notes, past papers, and CATs from top campuses delivered straight to your phone.</p>
+      <div class="hero-ctas">
+        <a href="STUDYSPRINT.apk" download class="btn btn-primary">Download STUDYSPRINT APP</a>
+        <a href="#learn-more" class="btn btn-outline">How to install →</a>
+      </div>
+      <div class="stat-row">
+        <div><div class="num">8+</div><div class="lab">Universities</div></div>
+        <div><div class="num">KSh 50</div><div class="lab">Plans from</div></div>
+        <div><div class="num">∞</div><div class="lab">Downloads</div></div>
+      </div>
+    </div>
+
+    <div class="app-card">
+      <div class="top-row">
+        <img src="studysprintlogo.jpg" alt="StudySprint Icon">
+        <div>
+          <div class="name">StudySprint</div>
+          <div class="cat">Education · Academic Partner</div>
+        </div>
+      </div>
+      <div class="stars">★★★★★ <span style="color:var(--text-main); font-family:var(--font-mono); font-size:.78rem; font-weight:600;">Verified Platform</span></div>
+      <p class="desc">Your complete academic companion for revision materials, exam preparation, and module notes tailored for Kenyan universities.</p>
+      <div class="row-item"><span>Package Name</span><span>studysprint.apk</span></div>
+      <div class="row-item"><span>Compatibility</span><span>Android 6.0+</span></div>
+      <div class="row-item"><span>Access</span><span>Instant Direct Download</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="ceo-section">
+  <div class="wrap">
+    <span class="kicker">leadership</span>
+    <h2 class="h2">Meet the founder.</h2>
+    <div class="ceo-grid">
+      <div class="ceo-photo-wrap">
+        <div class="ceo-photo">
+          <img src="StudySprint ceo-photo.jpg" alt="Joseph Wambua, CEO of StudySprint">
+        </div>
+        <div class="ceo-badge">FOUNDER & CEO</div>
+      </div>
+      <div>
+        <h3 style="font-size: 1.8rem;">Joseph Wambua</h3>
+        <div style="font-family:var(--font-mono); color:var(--logo-blue); font-size:0.9rem; margin-top:4px; font-weight:700;">Founder & CEO, StudySprint</div>
+        <p class="ceo-quote"><span>"</span>StudySprint exists because every Kenyan university student deserves fast, affordable access to quality notes and past papers — no matter where they study.<span>"</span></p>
+        <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:24px;">
+          <a href="#contact" class="btn btn-outline">Get in touch</a>
+          <a href="mailto:studysprintke@gmail.com" class="btn btn-outline">studysprintke@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <span class="kicker">whats-inside</span>
+    <h2 class="h2">Everything you need to pass, in one app.</h2>
+    <div class="feat-grid">
+      <div class="feat">
+        <h3>📘 Quality Course Notes</h3>
+        <p>Comprehensive, structured summaries curated directly from module course outlines.</p>
+        <a href="STUDYSPRINT.apk" download class="btn btn-outline btn-sm"> Get notes</a>
+      </div>
+      <div class="feat">
+        <h3>📄 Past Papers & CATs</h3>
+        <p>Real previous examination papers neatly organized by campus and course code.</p>
+        <a href="STUDYSPRINT.apk" download class="btn btn-outline btn-sm"> Get past papers</a>
+      </div>
+      <div class="feat">
+        <h3>☁️ Offline Learning</h3>
+        <p>Download your files once and study anytime on your device without using data.</p>
+        <a href="STUDYSPRINT.apk" download class="btn btn-outline btn-sm"> Try it now</a>
+      </div>
+    </div>
+
+    <div class="cta-banner">
+      <div>
+        <h3 style="font-size:1.5rem; color:var(--text-main);">Ready to boost your grades?</h3>
+        <p style="color:var(--text-muted); margin-top:6px;">Download STUDYSPRINT.apk now and follow the simple 2-minute setup.</p>
+      </div>
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <a href="STUDYSPRINT.apk" download class="btn btn-primary">⬇ Download App</a>
+        <a href="#learn-more" class="btn btn-outline">Learn More</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background: #F9FAFB; border-top:1px solid var(--border-subtle); border-bottom:1px solid var(--border-subtle);">
+  <div class="wrap">
+    <span class="kicker">campus-coverage</span>
+    <h2 class="h2">Universities covered.</h2>
+    <p class="sub">Select your campus to request specific module materials or past papers.</p>
+    <div class="chip-grid">
+      <a href="#contact" class="chip-btn">🎓 Egerton University</a>
+      <a href="#contact" class="chip-btn">🎓 Kenyatta University</a>
+      <a href="#contact" class="chip-btn">🎓 Maseno University</a>
+      <a href="#contact" class="chip-btn">🎓 Karatina University</a>
+      <a href="#contact" class="chip-btn">🎓 Chuka University</a>
+      <a href="#contact" class="chip-btn">🎓 JKUAT</a>
+      <a href="#contact" class="chip-btn">🎓 Moi University</a>
+      <a href="#contact" class="chip-btn">🎓 Kisii University</a>
+    </div>
+  </div>
+</section>
+
+<section id="learn-more">
+  <div class="wrap">
+    <span class="kicker">install-guide</span>
+    <h2 class="h2">How to install & launch StudySprint.</h2>
+    <p class="sub">Because StudySprint is installed directly via APK, your phone requires a couple of quick permission steps.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="num">01</div>
+        <h3>Download File</h3>
+        <p>Tap "Download App" to save STUDYSPRINT.apk to your phone.</p>
+      </div>
+       <div class="warn-box">
+      <h3>⚠ Seeing a "File may be harmful" warning?</h3>
+      <p>This is a standard system warning for any Android package installed outside the Play Store.</p>
+      <ol>
+        <li>When browser warning appears, select <strong>Download anyway</strong>.</li>
+        <li>If blocked on launch, click <strong>Settings</strong> and turn on <strong>Allow from this source</strong>.</li>
+        <li>Complete installation, open StudySprint, and grant storage permissions to enable offline downloads.</li>
+      </ol>
+    </div>
+      <div class="step">
+        <div class="num">02</div>
+        <h3>Open File</h3>
+        <p>Open your file browser or notification tray and tap the APK file.</p>
+      </div>
+      <div class="step">
+        <div class="num">03</div>
+        <h3>Allow Source</h3>
+        <p>Toggle "Allow from this source" if prompted by Android security settings.</p>
+      </div>
+      <div class="step">
+        <div class="num">04</div>
+        <h3>Launch & Study</h3>
+        <p>Open StudySprint, pick your university, and start downloading materials.</p>
+      </div>
+    </div>
+
+    <div class="terminal">
+      <div class="terminal-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>&nbsp; installation_status.log</div>
+      <div class="terminal-body">
+        <div><span class="prompt">$</span> downloading <span class="file">STUDYSPRINT.apk</span> ...</div>
+        <div><span class="ok">✓</span> download complete</div>
+        <div><span class="prompt">$</span> package verification successful</div>
+        <div><span class="ok">✓</span> ready to revision</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <span class="kicker">get-in-touch</span>
+    <h2 class="h2">Contact the StudySprint team.</h2>
+    
+    <div class="contact-grid">
+      <div class="card">
+        <h3 style="font-size:1.1rem; text-transform:uppercase; margin-bottom:12px; color:var(--text-main);">Send us a message</h3>
+        <form id="contact-form">
+          <div>
+            <label for="name">Your Name</label>
+            <input type="text" id="name" placeholder="e.g. Faith Njoroge" required>
+          </div>
+          <div>
+            <label for="message">Message</label>
+            <textarea id="message" rows="4" placeholder="Ask about units, plans, or partnerships..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">💬 Send via WhatsApp</button>
+        </form>
+      </div>
+
+      <div>
+        <div class="card">
+          <h3 style="font-size:1.1rem; text-transform:uppercase; margin-bottom:20px; color:var(--text-main);">Direct Support</h3>
+          <a href="tel:+254797277757" class="row-btn">
+            <span class="ic-badge">📞</span>
+            <div><div class="rb-label">Call Us</div><div class="rb-value">0797 277 757</div></div>
+            <span class="rb-arrow">→</span>
+          </a>
+          <a href="https://wa.me/254757787383" target="_blank" class="row-btn">
+            <span class="ic-badge">💬</span>
+            <div><div class="rb-label">WhatsApp</div><div class="rb-value">0757 787 383</div></div>
+            <span class="rb-arrow">→</span>
+          </a>
+          <a href="mailto:studysprintke@gmail.com" class="row-btn" style="margin-bottom:0;">
+            <span class="ic-badge">✉️</span>
+            <div><div class="rb-label">Email Support</div><div class="rb-value">studysprintke@gmail.com</div></div>
+            <span class="rb-arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">
+          <img src="assets/logo.jpg" alt="StudySprint Logo">
+          StudySprint
+        </div>
+        <p>Study smarter, grow further. Your trusted academic partner for notes, past papers, and revision resources across Kenyan universities.</p>
+      </div>
+      <div>
+        <h4>Navigate</h4>
+        <div class="foot-links">
+          <a href="#home">Home</a>
+          <a href="#why">Why Us</a>
+          <a href="#learn-more">Install Guide</a>
+          <a href="#contact">Contact Support</a>
+        </div>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <div class="contact-line">📞 0797 277 757</div>
+        <div class="contact-line">💬 WhatsApp: 0757 787 383</div>
+        <div class="contact-line">✉️ studysprintke@gmail.com</div>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <span>© <span id="year"></span> StudySprint. All rights reserved.</span>
+      <span>Founder & CEO: Joseph Wambua</span>
+    </div>
+  </div>
+</footer>
+
+<a href="#home" class="fab" id="fab-top" aria-label="Back to Top">↑</a>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const fab = document.getElementById('fab-top');
+  window.addEventListener('scroll', () => {
+    fab.classList.toggle('show', window.scrollY > 400);
+  });
+
+  // Accordion Logic
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const answer = item.querySelector('.faq-a');
+      const isOpen = item.classList.contains('open');
+
+      document.querySelectorAll('.faq-item.open').forEach(o => {
+        o.classList.remove('open');
+        o.querySelector('.faq-a').style.maxHeight = null;
+      });
+
+      if (!isOpen) {
+        item.classList.add('open');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // WhatsApp Contact Submission
+  document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const message = document.getElementById('message').value.trim();
+    const text = `Hello StudySprint, my name is ${name}.\n\n${message}`;
+    window.open(`https://wa.me/254757787383?text=${encodeURIComponent(text)}`, '_blank');
+  });
+
+  // Navigation Highlights
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 150) current = sec.getAttribute('id');
+    });
+    navLinks.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
+</body>
+</html>
