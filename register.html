@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join StudySprint — Create your account</title>
+<link rel="icon" href="assets/logo.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#0B3B8B;--green:#00C853;--ink:#111827;--mute:#4B5563;--line:#E5E7EB;--bad:#b91c1c;--bg:#F3F6FC;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--ink:#F3F4F6;--mute:#9CA3AF;--line:#374151;--bg:#0b1220;--card:#111a2e}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;padding:20px 14px 40px;display:flex;justify-content:center}
+.wrap{width:100%;max-width:460px}
+.brand{text-align:center;margin:8px 0 18px;font:700 22px 'Space Grotesk',sans-serif;color:var(--blue)}.brand span{color:var(--green)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 20px;box-shadow:0 6px 24px rgba(11,59,139,.08)}
+h1{font:700 22px 'Space Grotesk',sans-serif;margin-bottom:4px}.sub{color:var(--mute);font-size:14px;margin-bottom:18px}
+label{display:block;font-size:12px;font-weight:700;color:var(--mute);margin:12px 0 5px}
+input,select{width:100%;padding:12px 13px;border:1.5px solid var(--line);border-radius:10px;font:inherit;font-size:15px;background:transparent;color:var(--ink)}
+select option{color:#111}
+input:focus,select:focus{outline:2px solid var(--blue);border-color:transparent}
+.err{color:var(--bad);font-size:12px;margin-top:4px;display:none}.bad{border-color:var(--bad)}
+.row{display:flex;gap:10px}.row>div{flex:1;min-width:0}
+.pw{position:relative}.pw button{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:0;cursor:pointer;font-size:16px}
+.invite{margin-top:6px;font-size:13px;font-weight:700;min-height:18px}.invite.ok{color:#15803d}.invite.no{color:var(--bad)}
+.btn{width:100%;margin-top:18px;padding:14px;border:0;border-radius:12px;font-weight:700;font-size:16px;font-family:inherit;color:#fff;background:linear-gradient(135deg,var(--blue),#1d4ed8);cursor:pointer;text-align:center;text-decoration:none;display:block}
+.btn.g{background:linear-gradient(135deg,#00A844,var(--green))}.btn:disabled{opacity:.6}
+.btn.ghost{background:transparent;color:var(--blue);border:1.5px solid var(--blue);margin-top:10px;padding:11px;font-size:14px}
+.ok-ico{font-size:44px;text-align:center}.cred{border:1.5px dashed var(--blue);border-radius:12px;padding:12px 14px;margin:14px 0}
+.cred div{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 0;font-size:14px}.cred code{font-family:ui-monospace,monospace;word-break:break-all;font-weight:600}
+.cred small{color:var(--mute);display:block;font-size:11px}
+.mini{background:none;border:1px solid var(--line);border-radius:8px;padding:5px 10px;font-size:12px;font-weight:700;color:var(--blue);cursor:pointer;flex:none}
+.steps{margin:12px 0 0 18px;color:var(--mute);font-size:13px;line-height:1.7}
+.note{font-size:12px;color:var(--mute);margin-top:10px;text-align:center}
+#done{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">Study<span>Sprint</span></div>
+
+  <div class="card" id="formCard">
+    <h1>Create your account</h1>
+    <p class="sub">Free notes, past papers, videos &amp; online exams for your university.</p>
+
+    <label for="ref">Invite code (optional)</label>
+    <input id="ref" placeholder="e.g. ST-U3BDZ" maxlength="9" autocapitalize="characters" autocomplete="off">
+    <div class="invite" id="invite"></div>
+
+    <label for="name">Full name</label><input id="name" autocomplete="name" placeholder="Your full name">
+    <div class="err" id="e-name">Please enter your name</div>
+
+    <label for="email">Email</label><input id="email" type="email" autocomplete="email" placeholder="e.g. josephwambua1929@gmail.com">
+    <div class="err" id="e-email">Enter a valid email address</div>
+
+    <label for="phone">Phone number</label><input id="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="07XXXXXXXX">
+    <div class="err" id="e-phone">Enter your phone number</div>
+
+    <label for="uni">University</label>
+    <select id="uni">
+      <option value="">Select your university</option>
+      <option value="egerton">Egerton University</option>
+      <option value="kenyatta">Kenyatta University</option>
+      <option value="chuka">Chuka University</option>
+      <option value="mut">Murang'a University</option>
+      <option value="must">Meru University</option>
+      <option value="kisii">Kisii University</option>
+      <option value="maseno">Maseno University</option>
+      <option value="karatina">Karatina University</option>
+      <option value="jkuat">JKUAT</option>
+      <option value="moi">Moi University</option>
+    </select>
+    <div class="err" id="e-uni">Please choose your university</div>
+
+    <label for="year">Year of study</label>
+    <select id="year"><option value="">Select year</option><option>Year 1</option><option>Year 2</option><option>Year 3</option><option>Year 4</option><option>Year 5</option><option>Year 6</option></select>
+    <div class="err" id="e-year">Please choose your year</div>
+
+    <div class="row">
+      <div><label for="pw">Password</label><div class="pw"><input id="pw" type="password" autocomplete="new-password" placeholder="Min. 6 characters"><button type="button" onclick="eye('pw',this)" aria-label="Show password">👁️</button></div></div>
+      <div><label for="pw2">Confirm</label><input id="pw2" type="password" autocomplete="new-password" placeholder="Repeat password"></div>
+    </div>
+    <div class="err" id="e-pw">Passwords must match (min. 6 characters)</div>
+
+    <div class="err" id="e-form" style="font-size:13px;margin-top:12px"></div>
+    <button class="btn g" id="go">Create account</button>
+    <p class="note">By registering you'll get your login details on the next page.</p>
+  </div>
+
+  <div class="card" id="done">
+    <div class="ok-ico">🎉</div>
+    <h1 style="text-align:center">You're in, <span id="dName"></span>!</h1>
+    <p class="sub" style="text-align:center">Your account is ready. Download the app and sign in with these details.</p>
+    <div class="cred">
+      <div><span><small>Email</small><code id="cEmail"></code></span><button class="mini" onclick="cp('cEmail',this)">Copy</button></div>
+      <div><span><small>Password</small><code id="cPw"></code></span><button class="mini" onclick="cp('cPw',this)">Copy</button></div>
+    </div>
+    <button class="btn ghost" style="margin-top:0" onclick="cpBoth(this)">Copy email &amp; password</button>
+    <a class="btn g" href="STUDYSPRINT%20APP.apk" download>⬇ Download StudySprint App</a>
+    <ol class="steps"><li>Download &amp; install the app</li><li>Open it and tap <b>Login</b></li><li>Paste your email and password</li></ol>
+    <p class="note">Your details are saved. You can edit your profile anytime inside the app. This password is shown only here — copy it now.</p>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+const auth = getAuth(initializeApp({ apiKey:"AIzaSyDJ0G4V7PPBT-fcnO9X-jWmqFk5VBUfJlg", authDomain:"studysprint-ke.firebaseapp.com", projectId:"studysprint-ke", appId:"1:460778528637:web:c862fd7c53306ab4f1f614" }));
+const PAY = "https://wjzzbljuibvominkoavp.supabase.co/functions/v1/payments";
+const REW = "https://wjzzbljuibvominkoavp.supabase.co/functions/v1/rewards";
+const $ = (id) => document.getElementById(id);
+
+async function post(url, body, token) {
+  const r = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json", ...(token ? { Authorization: "Bearer " + token } : {}) }, body: JSON.stringify(body) });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw Object.assign(new Error(j.error || "Request failed"), { status: r.status });
+  return j;
+}
+
+// ---- invite code: auto-fill from ?ref=, show who invited ----
+let refOk = false, t;
+async function checkRef() {
+  const code = $("ref").value.trim().toUpperCase(), box = $("invite");
+  $("ref").value = code; refOk = false; box.className = "invite";
+  if (!code) { box.textContent = ""; return; }
+  if (!/^ST-[A-Z0-9]{5}$/.test(code)) { box.textContent = ""; return; }
+  box.textContent = "Checking code…";
+  try { const j = await post(REW, { action: "lookup-ref", code }); if ($("ref").value !== code) return; refOk = true; box.className = "invite ok"; box.textContent = "✓ Invited by " + j.email; }
+  catch { box.className = "invite no"; box.textContent = "This invite code wasn't found"; }
+}
+$("ref").addEventListener("input", () => { clearTimeout(t); t = setTimeout(checkRef, 350); });
+const fromUrl = new URLSearchParams(location.search).get("ref");
+if (fromUrl) { $("ref").value = fromUrl; checkRef(); }
+
+// ---- registration ----
+const show = (id, on) => { $(id).style.display = on ? "block" : "none"; };
+function validate() {
+  const v = { name: $("name").value.trim().length > 1, email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($("email").value.trim()),
+    phone: $("phone").value.replace(/\D/g, "").length >= 9, uni: !!$("uni").value, year: !!$("year").value,
+    pw: $("pw").value.length >= 6 && $("pw").value === $("pw2").value };
+  Object.entries(v).forEach(([k, ok]) => show("e-" + k, !ok));
+  return Object.values(v).every(Boolean);
+}
+$("go").onclick = async () => {
+  show("e-form", false);
+  if (!validate()) return;
+  const email = $("email").value.trim().toLowerCase(), password = $("pw").value, name = $("name").value.trim(), btn = $("go");
+  btn.disabled = true; btn.textContent = "Creating account…";
+  let cred;
+  try { cred = await createUserWithEmailAndPassword(auth, email, password); }
+  catch (e) {
+    const m = { "auth/email-already-in-use": "This email is already registered. Open the app and log in.", "auth/weak-password": "Password must be at least 6 characters.", "auth/invalid-email": "Invalid email address.", "auth/network-request-failed": "No internet connection." }[e.code] || "Registration failed. Please try again.";
+    $("e-form").textContent = m; show("e-form", true); btn.disabled = false; btn.textContent = "Create account"; return;
+  }
+  try {
+    const token = await cred.user.getIdToken();
+    const profile = { name, phone: $("phone").value.trim(), university: $("uni").value, year: $("year").value };
+    try { await post(PAY, { action: "save-profile", ...profile }, token); }
+    catch { await post(PAY, { action: "save-profile", ...profile }, await cred.user.getIdToken(true)); }   // one retry
+    if (refOk) { try { await post(REW, { action: "claim-referral", code: $("ref").value, name, phone: profile.phone }, token); } catch (e) { console.warn("referral", e.message); } }
+  } catch (e) { console.warn("profile save failed - user can complete it in the app", e.message); }
+  await signOut(auth).catch(() => {});
+  $("dName").textContent = name.split(" ")[0]; $("cEmail").textContent = email; $("cPw").textContent = password;
+  $("formCard").style.display = "none"; $("done").style.display = "block"; window.scrollTo(0, 0);
+};
+</script>
+<script>
+function eye(id, b) { const i = document.getElementById(id); i.type = i.type === "password" ? "text" : "password"; }
+function copyText(txt) {
+  if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(txt);
+  return new Promise((res, rej) => { const a = document.createElement("textarea"); a.value = txt; a.style.position = "fixed"; a.style.opacity = "0"; document.body.appendChild(a); a.select(); try { document.execCommand("copy") ? res() : rej(); } catch (e) { rej(e); } a.remove(); });
+}
+function flash(b, ok) { const o = b.textContent; b.textContent = ok ? "Copied ✓" : "Copy failed"; setTimeout(() => b.textContent = o, 1600); }
+function cp(id, b) { copyText(document.getElementById(id).textContent).then(() => flash(b, 1), () => flash(b, 0)); }
+function cpBoth(b) { copyText("Email: " + cEmail.textContent + "\nPassword: " + cPw.textContent).then(() => flash(b, 1), () => flash(b, 0)); }
+</script>
+</body>
+</html>
